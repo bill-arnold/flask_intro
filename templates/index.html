@@ -1,0 +1,38 @@
+{% extends'base.html'%}
+
+{% block head%}
+
+{% endblock%}
+
+{% block body%}
+<div class="content">
+    <h1 style="text-align: center;">Gwansorific Task Master</h1>
+    <h2>Welcome To Your Task Manager</h2>
+    {% if task|length <1 %} <h4 style="text-align: center;">There are no task create one below </h4>
+
+        {%else%}
+</div>
+<table>
+    <tr>
+        <th>Task</th>
+        <th>Added</th>
+        <th>Actions</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td>{{task.content}}</td>
+        <td>{{ task.date_created.date() if task.date_created else "No Date" }}</td>
+        <td>
+            <a href="/delete/{{task.id}}">Delete</a>
+            <br>
+            <a href="/update/{{task.id}}">Update</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+<form action="/" method="POST">
+    <input type="text" name="content" id="content">
+    <input type="submit" value="Add Task">
+</form>
+{% endblock%}
